@@ -1,0 +1,1341 @@
+{
+ "Resources": {
+  "GestionFlotasVpc2D1752D4": {
+   "Type": "AWS::EC2::VPC",
+   "Properties": {
+    "CidrBlock": "10.0.0.0/16",
+    "EnableDnsHostnames": true,
+    "EnableDnsSupport": true,
+    "InstanceTenancy": "default",
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "GestionFlotasStack/GestionFlotasVpc"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "GestionFlotasStack/GestionFlotasVpc/Resource"
+   }
+  },
+  "GestionFlotasVpcPublicSubnet1Subnet9CC152EA": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "AvailabilityZone": {
+     "Fn::Select": [
+      0,
+      {
+       "Fn::GetAZs": ""
+      }
+     ]
+    },
+    "CidrBlock": "10.0.0.0/18",
+    "MapPublicIpOnLaunch": true,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "Public"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Public"
+     },
+     {
+      "Key": "Name",
+      "Value": "GestionFlotasStack/GestionFlotasVpc/PublicSubnet1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "GestionFlotasVpc2D1752D4"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "GestionFlotasStack/GestionFlotasVpc/PublicSubnet1/Subnet"
+   }
+  },
+  "GestionFlotasVpcPublicSubnet1RouteTableC68256E5": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "GestionFlotasStack/GestionFlotasVpc/PublicSubnet1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "GestionFlotasVpc2D1752D4"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "GestionFlotasStack/GestionFlotasVpc/PublicSubnet1/RouteTable"
+   }
+  },
+  "GestionFlotasVpcPublicSubnet1RouteTableAssociationC4EE4378": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "GestionFlotasVpcPublicSubnet1RouteTableC68256E5"
+    },
+    "SubnetId": {
+     "Ref": "GestionFlotasVpcPublicSubnet1Subnet9CC152EA"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "GestionFlotasStack/GestionFlotasVpc/PublicSubnet1/RouteTableAssociation"
+   }
+  },
+  "GestionFlotasVpcPublicSubnet1DefaultRoute5D5EFC0F": {
+   "Type": "AWS::EC2::Route",
+   "Properties": {
+    "DestinationCidrBlock": "0.0.0.0/0",
+    "GatewayId": {
+     "Ref": "GestionFlotasVpcIGW1EC4D942"
+    },
+    "RouteTableId": {
+     "Ref": "GestionFlotasVpcPublicSubnet1RouteTableC68256E5"
+    }
+   },
+   "DependsOn": [
+    "GestionFlotasVpcVPCGW782B6405"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "GestionFlotasStack/GestionFlotasVpc/PublicSubnet1/DefaultRoute"
+   }
+  },
+  "GestionFlotasVpcPublicSubnet1EIPD320BB52": {
+   "Type": "AWS::EC2::EIP",
+   "Properties": {
+    "Domain": "vpc",
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "GestionFlotasStack/GestionFlotasVpc/PublicSubnet1"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "GestionFlotasStack/GestionFlotasVpc/PublicSubnet1/EIP"
+   }
+  },
+  "GestionFlotasVpcPublicSubnet1NATGateway84DA1485": {
+   "Type": "AWS::EC2::NatGateway",
+   "Properties": {
+    "AllocationId": {
+     "Fn::GetAtt": [
+      "GestionFlotasVpcPublicSubnet1EIPD320BB52",
+      "AllocationId"
+     ]
+    },
+    "SubnetId": {
+     "Ref": "GestionFlotasVpcPublicSubnet1Subnet9CC152EA"
+    },
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "GestionFlotasStack/GestionFlotasVpc/PublicSubnet1"
+     }
+    ]
+   },
+   "DependsOn": [
+    "GestionFlotasVpcPublicSubnet1DefaultRoute5D5EFC0F",
+    "GestionFlotasVpcPublicSubnet1RouteTableAssociationC4EE4378"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "GestionFlotasStack/GestionFlotasVpc/PublicSubnet1/NATGateway"
+   }
+  },
+  "GestionFlotasVpcPublicSubnet2Subnet084BCFCD": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "AvailabilityZone": {
+     "Fn::Select": [
+      1,
+      {
+       "Fn::GetAZs": ""
+      }
+     ]
+    },
+    "CidrBlock": "10.0.64.0/18",
+    "MapPublicIpOnLaunch": true,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "Public"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Public"
+     },
+     {
+      "Key": "Name",
+      "Value": "GestionFlotasStack/GestionFlotasVpc/PublicSubnet2"
+     }
+    ],
+    "VpcId": {
+     "Ref": "GestionFlotasVpc2D1752D4"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "GestionFlotasStack/GestionFlotasVpc/PublicSubnet2/Subnet"
+   }
+  },
+  "GestionFlotasVpcPublicSubnet2RouteTableA1479700": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "GestionFlotasStack/GestionFlotasVpc/PublicSubnet2"
+     }
+    ],
+    "VpcId": {
+     "Ref": "GestionFlotasVpc2D1752D4"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "GestionFlotasStack/GestionFlotasVpc/PublicSubnet2/RouteTable"
+   }
+  },
+  "GestionFlotasVpcPublicSubnet2RouteTableAssociationDD585A3A": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "GestionFlotasVpcPublicSubnet2RouteTableA1479700"
+    },
+    "SubnetId": {
+     "Ref": "GestionFlotasVpcPublicSubnet2Subnet084BCFCD"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "GestionFlotasStack/GestionFlotasVpc/PublicSubnet2/RouteTableAssociation"
+   }
+  },
+  "GestionFlotasVpcPublicSubnet2DefaultRoute40852590": {
+   "Type": "AWS::EC2::Route",
+   "Properties": {
+    "DestinationCidrBlock": "0.0.0.0/0",
+    "GatewayId": {
+     "Ref": "GestionFlotasVpcIGW1EC4D942"
+    },
+    "RouteTableId": {
+     "Ref": "GestionFlotasVpcPublicSubnet2RouteTableA1479700"
+    }
+   },
+   "DependsOn": [
+    "GestionFlotasVpcVPCGW782B6405"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "GestionFlotasStack/GestionFlotasVpc/PublicSubnet2/DefaultRoute"
+   }
+  },
+  "GestionFlotasVpcPublicSubnet2EIP6CA7AA2B": {
+   "Type": "AWS::EC2::EIP",
+   "Properties": {
+    "Domain": "vpc",
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "GestionFlotasStack/GestionFlotasVpc/PublicSubnet2"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "GestionFlotasStack/GestionFlotasVpc/PublicSubnet2/EIP"
+   }
+  },
+  "GestionFlotasVpcPublicSubnet2NATGateway2E4BA628": {
+   "Type": "AWS::EC2::NatGateway",
+   "Properties": {
+    "AllocationId": {
+     "Fn::GetAtt": [
+      "GestionFlotasVpcPublicSubnet2EIP6CA7AA2B",
+      "AllocationId"
+     ]
+    },
+    "SubnetId": {
+     "Ref": "GestionFlotasVpcPublicSubnet2Subnet084BCFCD"
+    },
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "GestionFlotasStack/GestionFlotasVpc/PublicSubnet2"
+     }
+    ]
+   },
+   "DependsOn": [
+    "GestionFlotasVpcPublicSubnet2DefaultRoute40852590",
+    "GestionFlotasVpcPublicSubnet2RouteTableAssociationDD585A3A"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "GestionFlotasStack/GestionFlotasVpc/PublicSubnet2/NATGateway"
+   }
+  },
+  "GestionFlotasVpcPrivateSubnet1Subnet2E776C3B": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "AvailabilityZone": {
+     "Fn::Select": [
+      0,
+      {
+       "Fn::GetAZs": ""
+      }
+     ]
+    },
+    "CidrBlock": "10.0.128.0/18",
+    "MapPublicIpOnLaunch": false,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "Private"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Private"
+     },
+     {
+      "Key": "Name",
+      "Value": "GestionFlotasStack/GestionFlotasVpc/PrivateSubnet1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "GestionFlotasVpc2D1752D4"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "GestionFlotasStack/GestionFlotasVpc/PrivateSubnet1/Subnet"
+   }
+  },
+  "GestionFlotasVpcPrivateSubnet1RouteTable8423FE13": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "GestionFlotasStack/GestionFlotasVpc/PrivateSubnet1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "GestionFlotasVpc2D1752D4"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "GestionFlotasStack/GestionFlotasVpc/PrivateSubnet1/RouteTable"
+   }
+  },
+  "GestionFlotasVpcPrivateSubnet1RouteTableAssociationBDE2F6E7": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "GestionFlotasVpcPrivateSubnet1RouteTable8423FE13"
+    },
+    "SubnetId": {
+     "Ref": "GestionFlotasVpcPrivateSubnet1Subnet2E776C3B"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "GestionFlotasStack/GestionFlotasVpc/PrivateSubnet1/RouteTableAssociation"
+   }
+  },
+  "GestionFlotasVpcPrivateSubnet1DefaultRoute3277D258": {
+   "Type": "AWS::EC2::Route",
+   "Properties": {
+    "DestinationCidrBlock": "0.0.0.0/0",
+    "NatGatewayId": {
+     "Ref": "GestionFlotasVpcPublicSubnet1NATGateway84DA1485"
+    },
+    "RouteTableId": {
+     "Ref": "GestionFlotasVpcPrivateSubnet1RouteTable8423FE13"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "GestionFlotasStack/GestionFlotasVpc/PrivateSubnet1/DefaultRoute"
+   }
+  },
+  "GestionFlotasVpcPrivateSubnet2Subnet2A71090D": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "AvailabilityZone": {
+     "Fn::Select": [
+      1,
+      {
+       "Fn::GetAZs": ""
+      }
+     ]
+    },
+    "CidrBlock": "10.0.192.0/18",
+    "MapPublicIpOnLaunch": false,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "Private"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Private"
+     },
+     {
+      "Key": "Name",
+      "Value": "GestionFlotasStack/GestionFlotasVpc/PrivateSubnet2"
+     }
+    ],
+    "VpcId": {
+     "Ref": "GestionFlotasVpc2D1752D4"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "GestionFlotasStack/GestionFlotasVpc/PrivateSubnet2/Subnet"
+   }
+  },
+  "GestionFlotasVpcPrivateSubnet2RouteTable37FD92C1": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "GestionFlotasStack/GestionFlotasVpc/PrivateSubnet2"
+     }
+    ],
+    "VpcId": {
+     "Ref": "GestionFlotasVpc2D1752D4"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "GestionFlotasStack/GestionFlotasVpc/PrivateSubnet2/RouteTable"
+   }
+  },
+  "GestionFlotasVpcPrivateSubnet2RouteTableAssociation22466E7A": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "GestionFlotasVpcPrivateSubnet2RouteTable37FD92C1"
+    },
+    "SubnetId": {
+     "Ref": "GestionFlotasVpcPrivateSubnet2Subnet2A71090D"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "GestionFlotasStack/GestionFlotasVpc/PrivateSubnet2/RouteTableAssociation"
+   }
+  },
+  "GestionFlotasVpcPrivateSubnet2DefaultRouteBA17FB95": {
+   "Type": "AWS::EC2::Route",
+   "Properties": {
+    "DestinationCidrBlock": "0.0.0.0/0",
+    "NatGatewayId": {
+     "Ref": "GestionFlotasVpcPublicSubnet2NATGateway2E4BA628"
+    },
+    "RouteTableId": {
+     "Ref": "GestionFlotasVpcPrivateSubnet2RouteTable37FD92C1"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "GestionFlotasStack/GestionFlotasVpc/PrivateSubnet2/DefaultRoute"
+   }
+  },
+  "GestionFlotasVpcIGW1EC4D942": {
+   "Type": "AWS::EC2::InternetGateway",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "GestionFlotasStack/GestionFlotasVpc"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "GestionFlotasStack/GestionFlotasVpc/IGW"
+   }
+  },
+  "GestionFlotasVpcVPCGW782B6405": {
+   "Type": "AWS::EC2::VPCGatewayAttachment",
+   "Properties": {
+    "InternetGatewayId": {
+     "Ref": "GestionFlotasVpcIGW1EC4D942"
+    },
+    "VpcId": {
+     "Ref": "GestionFlotasVpc2D1752D4"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "GestionFlotasStack/GestionFlotasVpc/VPCGW"
+   }
+  },
+  "GestionFlotasVpcRestrictDefaultSecurityGroupCustomResource0ACF973F": {
+   "Type": "Custom::VpcRestrictDefaultSG",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "CustomVpcRestrictDefaultSGCustomResourceProviderHandlerDC833E5E",
+      "Arn"
+     ]
+    },
+    "DefaultSecurityGroupId": {
+     "Fn::GetAtt": [
+      "GestionFlotasVpc2D1752D4",
+      "DefaultSecurityGroup"
+     ]
+    },
+    "Account": {
+     "Ref": "AWS::AccountId"
+    }
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "GestionFlotasStack/GestionFlotasVpc/RestrictDefaultSecurityGroupCustomResource/Default"
+   }
+  },
+  "CustomVpcRestrictDefaultSGCustomResourceProviderRole26592FE0": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Version": "2012-10-17",
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ]
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Sub": "arn:${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+     }
+    ],
+    "Policies": [
+     {
+      "PolicyName": "Inline",
+      "PolicyDocument": {
+       "Version": "2012-10-17",
+       "Statement": [
+        {
+         "Effect": "Allow",
+         "Action": [
+          "ec2:AuthorizeSecurityGroupIngress",
+          "ec2:AuthorizeSecurityGroupEgress",
+          "ec2:RevokeSecurityGroupIngress",
+          "ec2:RevokeSecurityGroupEgress"
+         ],
+         "Resource": [
+          {
+           "Fn::Join": [
+            "",
+            [
+             "arn:",
+             {
+              "Ref": "AWS::Partition"
+             },
+             ":ec2:",
+             {
+              "Ref": "AWS::Region"
+             },
+             ":",
+             {
+              "Ref": "AWS::AccountId"
+             },
+             ":security-group/",
+             {
+              "Fn::GetAtt": [
+               "GestionFlotasVpc2D1752D4",
+               "DefaultSecurityGroup"
+              ]
+             }
+            ]
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "GestionFlotasStack/Custom::VpcRestrictDefaultSGCustomResourceProvider/Role"
+   }
+  },
+  "CustomVpcRestrictDefaultSGCustomResourceProviderHandlerDC833E5E": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": {
+      "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+     },
+     "S3Key": "7fa1e366ee8a9ded01fc355f704cff92bfd179574e6f9cfee800a3541df1b200.zip"
+    },
+    "Timeout": 900,
+    "MemorySize": 128,
+    "Handler": "__entrypoint__.handler",
+    "Role": {
+     "Fn::GetAtt": [
+      "CustomVpcRestrictDefaultSGCustomResourceProviderRole26592FE0",
+      "Arn"
+     ]
+    },
+    "Runtime": "nodejs22.x",
+    "Description": "Lambda function for removing all inbound/outbound rules from the VPC default security group"
+   },
+   "DependsOn": [
+    "CustomVpcRestrictDefaultSGCustomResourceProviderRole26592FE0"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "GestionFlotasStack/Custom::VpcRestrictDefaultSGCustomResourceProvider/Handler",
+    "aws:asset:path": "asset.7fa1e366ee8a9ded01fc355f704cff92bfd179574e6f9cfee800a3541df1b200",
+    "aws:asset:property": "Code"
+   }
+  },
+  "UploadsBucket5E5E9B64": {
+   "Type": "AWS::S3::Bucket",
+   "Properties": {
+    "BucketEncryption": {
+     "ServerSideEncryptionConfiguration": [
+      {
+       "ServerSideEncryptionByDefault": {
+        "SSEAlgorithm": "AES256"
+       }
+      }
+     ]
+    },
+    "BucketName": "gestionflotas-uploads-jmendez",
+    "PublicAccessBlockConfiguration": {
+     "BlockPublicAcls": true,
+     "BlockPublicPolicy": true,
+     "IgnorePublicAcls": true,
+     "RestrictPublicBuckets": true
+    }
+   },
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain",
+   "Metadata": {
+    "aws:cdk:path": "GestionFlotasStack/UploadsBucket/Resource"
+   }
+  },
+  "SolicitudQueue7ECF82DB": {
+   "Type": "AWS::SQS::Queue",
+   "Properties": {
+    "QueueName": "gestionflotas-solicitudes",
+    "VisibilityTimeout": 30
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "GestionFlotasStack/SolicitudQueue/Resource"
+   }
+  },
+  "GestionFlotasDBSubnetGroup24CB02A6": {
+   "Type": "AWS::RDS::DBSubnetGroup",
+   "Properties": {
+    "DBSubnetGroupDescription": "Subnet group for GestionFlotasDB database",
+    "SubnetIds": [
+     {
+      "Ref": "GestionFlotasVpcPrivateSubnet1Subnet2E776C3B"
+     },
+     {
+      "Ref": "GestionFlotasVpcPrivateSubnet2Subnet2A71090D"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "GestionFlotasStack/GestionFlotasDB/SubnetGroup/Default"
+   }
+  },
+  "GestionFlotasDBSecurityGroupE2D8432B": {
+   "Type": "AWS::EC2::SecurityGroup",
+   "Properties": {
+    "GroupDescription": "Security group for GestionFlotasDB database",
+    "SecurityGroupEgress": [
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "Allow all outbound traffic by default",
+      "IpProtocol": "-1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "GestionFlotasVpc2D1752D4"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "GestionFlotasStack/GestionFlotasDB/SecurityGroup/Resource"
+   }
+  },
+  "GestionFlotasStackGestionFlotasDBSecretA16044E43fdaad7efa858a3daf9490cf0a702aeb": {
+   "Type": "AWS::SecretsManager::Secret",
+   "Properties": {
+    "Description": {
+     "Fn::Join": [
+      "",
+      [
+       "Generated by the CDK for stack: ",
+       {
+        "Ref": "AWS::StackName"
+       }
+      ]
+     ]
+    },
+    "GenerateSecretString": {
+     "ExcludeCharacters": " %+~`#$&*()|[]{}:;<>?!'/@\"\\",
+     "GenerateStringKey": "password",
+     "PasswordLength": 30,
+     "SecretStringTemplate": "{\"username\":\"postgres\"}"
+    }
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "GestionFlotasStack/GestionFlotasDB/Secret/Resource"
+   }
+  },
+  "GestionFlotasDBSecretAttachment231C761A": {
+   "Type": "AWS::SecretsManager::SecretTargetAttachment",
+   "Properties": {
+    "SecretId": {
+     "Ref": "GestionFlotasStackGestionFlotasDBSecretA16044E43fdaad7efa858a3daf9490cf0a702aeb"
+    },
+    "TargetId": {
+     "Ref": "GestionFlotasDB93D6772B"
+    },
+    "TargetType": "AWS::RDS::DBInstance"
+   },
+   "Metadata": {
+    "aws:cdk:path": "GestionFlotasStack/GestionFlotasDB/Secret/Attachment/Resource"
+   }
+  },
+  "GestionFlotasDB93D6772B": {
+   "Type": "AWS::RDS::DBInstance",
+   "Properties": {
+    "AllocatedStorage": "20",
+    "CopyTagsToSnapshot": true,
+    "DBInstanceClass": "db.t3.micro",
+    "DBSubnetGroupName": {
+     "Ref": "GestionFlotasDBSubnetGroup24CB02A6"
+    },
+    "Engine": "postgres",
+    "EngineVersion": "15",
+    "MasterUserPassword": {
+     "Fn::Join": [
+      "",
+      [
+       "{{resolve:secretsmanager:",
+       {
+        "Ref": "GestionFlotasStackGestionFlotasDBSecretA16044E43fdaad7efa858a3daf9490cf0a702aeb"
+       },
+       ":SecretString:password::}}"
+      ]
+     ]
+    },
+    "MasterUsername": "postgres",
+    "StorageType": "gp2",
+    "VPCSecurityGroups": [
+     {
+      "Fn::GetAtt": [
+       "GestionFlotasDBSecurityGroupE2D8432B",
+       "GroupId"
+      ]
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Snapshot",
+   "DeletionPolicy": "Snapshot",
+   "Metadata": {
+    "aws:cdk:path": "GestionFlotasStack/GestionFlotasDB/Resource"
+   }
+  },
+  "GestionFlotasCluster82C5BA3B": {
+   "Type": "AWS::ECS::Cluster",
+   "Metadata": {
+    "aws:cdk:path": "GestionFlotasStack/GestionFlotasCluster/Resource"
+   }
+  },
+  "TaskDefTaskRole1EDB4A67": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "ecs-tasks.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "GestionFlotasStack/TaskDef/TaskRole/Resource"
+   }
+  },
+  "TaskDefTaskRoleDefaultPolicyA592CB18": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "s3:Abort*",
+        "s3:PutObject",
+        "s3:PutObjectLegalHold",
+        "s3:PutObjectRetention",
+        "s3:PutObjectTagging",
+        "s3:PutObjectVersionTagging"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          {
+           "Fn::GetAtt": [
+            "UploadsBucket5E5E9B64",
+            "Arn"
+           ]
+          },
+          "/*"
+         ]
+        ]
+       }
+      },
+      {
+       "Action": [
+        "sqs:GetQueueAttributes",
+        "sqs:GetQueueUrl",
+        "sqs:SendMessage"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::GetAtt": [
+         "SolicitudQueue7ECF82DB",
+         "Arn"
+        ]
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "TaskDefTaskRoleDefaultPolicyA592CB18",
+    "Roles": [
+     {
+      "Ref": "TaskDefTaskRole1EDB4A67"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "GestionFlotasStack/TaskDef/TaskRole/DefaultPolicy/Resource"
+   }
+  },
+  "TaskDef54694570": {
+   "Type": "AWS::ECS::TaskDefinition",
+   "Properties": {
+    "ContainerDefinitions": [
+     {
+      "Environment": [
+       {
+        "Name": "AWS_S3_BUCKET",
+        "Value": {
+         "Ref": "UploadsBucket5E5E9B64"
+        }
+       },
+       {
+        "Name": "AWS_SQS_QUEUE_URL",
+        "Value": {
+         "Ref": "SolicitudQueue7ECF82DB"
+        }
+       }
+      ],
+      "Essential": true,
+      "Image": {
+       "Fn::Sub": "${AWS::AccountId}.dkr.ecr.${AWS::Region}.${AWS::URLSuffix}/cdk-hnb659fds-container-assets-${AWS::AccountId}-${AWS::Region}:df589b12c86a707f07b1579794d7fa4161b45bf4242bda5294087611a2ad5046"
+      },
+      "Name": "AppContainer",
+      "PortMappings": [
+       {
+        "ContainerPort": 8080,
+        "Protocol": "tcp"
+       }
+      ]
+     }
+    ],
+    "Cpu": "256",
+    "ExecutionRoleArn": {
+     "Fn::GetAtt": [
+      "TaskDefExecutionRoleB4775C97",
+      "Arn"
+     ]
+    },
+    "Family": "GestionFlotasStackTaskDef73F8D7E0",
+    "Memory": "512",
+    "NetworkMode": "awsvpc",
+    "RequiresCompatibilities": [
+     "FARGATE"
+    ],
+    "TaskRoleArn": {
+     "Fn::GetAtt": [
+      "TaskDefTaskRole1EDB4A67",
+      "Arn"
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "GestionFlotasStack/TaskDef/Resource"
+   }
+  },
+  "TaskDefExecutionRoleB4775C97": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "ecs-tasks.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "GestionFlotasStack/TaskDef/ExecutionRole/Resource"
+   }
+  },
+  "TaskDefExecutionRoleDefaultPolicy0DBB737A": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "ecr:BatchCheckLayerAvailability",
+        "ecr:BatchGetImage",
+        "ecr:GetDownloadUrlForLayer"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          "arn:",
+          {
+           "Ref": "AWS::Partition"
+          },
+          ":ecr:",
+          {
+           "Ref": "AWS::Region"
+          },
+          ":",
+          {
+           "Ref": "AWS::AccountId"
+          },
+          ":repository/",
+          {
+           "Fn::Sub": "cdk-hnb659fds-container-assets-${AWS::AccountId}-${AWS::Region}"
+          }
+         ]
+        ]
+       }
+      },
+      {
+       "Action": "ecr:GetAuthorizationToken",
+       "Effect": "Allow",
+       "Resource": "*"
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "TaskDefExecutionRoleDefaultPolicy0DBB737A",
+    "Roles": [
+     {
+      "Ref": "TaskDefExecutionRoleB4775C97"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "GestionFlotasStack/TaskDef/ExecutionRole/DefaultPolicy/Resource"
+   }
+  },
+  "ServiceD69D759B": {
+   "Type": "AWS::ECS::Service",
+   "Properties": {
+    "Cluster": {
+     "Ref": "GestionFlotasCluster82C5BA3B"
+    },
+    "DeploymentConfiguration": {
+     "MaximumPercent": 200,
+     "MinimumHealthyPercent": 50
+    },
+    "DesiredCount": 1,
+    "EnableECSManagedTags": false,
+    "LaunchType": "FARGATE",
+    "NetworkConfiguration": {
+     "AwsvpcConfiguration": {
+      "AssignPublicIp": "DISABLED",
+      "SecurityGroups": [
+       {
+        "Fn::GetAtt": [
+         "ServiceSecurityGroupC96ED6A7",
+         "GroupId"
+        ]
+       }
+      ],
+      "Subnets": [
+       {
+        "Ref": "GestionFlotasVpcPrivateSubnet1Subnet2E776C3B"
+       },
+       {
+        "Ref": "GestionFlotasVpcPrivateSubnet2Subnet2A71090D"
+       }
+      ]
+     }
+    },
+    "TaskDefinition": {
+     "Ref": "TaskDef54694570"
+    }
+   },
+   "DependsOn": [
+    "TaskDefTaskRoleDefaultPolicyA592CB18",
+    "TaskDefTaskRole1EDB4A67"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "GestionFlotasStack/Service/Service"
+   }
+  },
+  "ServiceSecurityGroupC96ED6A7": {
+   "Type": "AWS::EC2::SecurityGroup",
+   "Properties": {
+    "GroupDescription": "GestionFlotasStack/Service/SecurityGroup",
+    "SecurityGroupEgress": [
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "Allow all outbound traffic by default",
+      "IpProtocol": "-1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "GestionFlotasVpc2D1752D4"
+    }
+   },
+   "DependsOn": [
+    "TaskDefTaskRoleDefaultPolicyA592CB18",
+    "TaskDefTaskRole1EDB4A67"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "GestionFlotasStack/Service/SecurityGroup/Resource"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/81WbW/bNhD+LdXHgtHaBOiGfPNLG3gviWd7+TAjCM7UWWFNkeod6dQT9N8HkZKstGkLdBvmD4LIO97D5+4eUjpPzy9+Sl+9gEc+k9nuTKtNWi0dyJ2AR76vUJ6n1W0p11VSwMfRX5xcJi+T+k5MtuZ2PhFzv9FKLv3GoFtXCexBadgordzhT2swrBbJvpSzrB1LldFYW7lr5wWUEWRW3phfwRv5kFw68igSVe7fTD5ZDswqN7Ny/2aUZYTMN2ZCCE5ZE6mJE2ERiGTZNbgrcPgIh+RynbxM7k6G4Gmw+GKZgsSisJrRwnqHK9hoPNqPthGzlSoA94ubwdvZvHkd0cWc1B4c/uuK3YLmE+jFP6NxOkxOhEZU4cw4JIO9huLd185GzoF8KNA4sUTpSbnDFVlfrqskQ5akyh4w0O8z7MdR6cPYWvBFWo293AWNbhrSMbWRlMjcom3CgmsouuqgkXTo9lte3P82uh5dvZ22W0S8WvAHTqvfPXpcV8mH5j2A2CtWseorVaD1bsAxxNSCMk6rKTjYAOPMsAMjGyhJmKFxCjT3fHLVtK5qR6tDiU9ct0gc2FbJ1mvdT9t+vrc0NNUiKYGgQIcU6vQOCqUP7XJWJtf4ByMtrAtdHJWlVhIG9Y+7Pg3zZWnJ8QIhW2AIGIPc+bJLIsMteO0aYNPVqRYJaG0lOMyWzhLkXV6qrccg1UGj47XzbX2EUVzc0SAs7B703GolD4OmTMcDUNG1ZYmSgnaOkvgF+5SDc9B0inkvMFfWcK9QP0z5mbDnsPGj1D7DyQMQSIfEgy1A4o2ZA/OjpWxCyiEpmDyAyZG7z8hzVNo8O6nVIjLhAgzkSGkVzw9hOIKEbgWUozuezHXVkm/JuOB/evqeCasFSk6rifbskNafHtnWLt4B5dB8iHg3xa0yqqnIOmx0fELE0yViYo0DZZAGthZsibRXEtddZDuvhYIirRZWNwcOmH2B2fjQnJ+SlJGqBD2S0nrTpRrXNAEjebzZ2q/uys67qE5X66qOvyihCjOjlcHe1/+/fNX5ddzv5iwSsvp4Vf1PKdzF/wuNIppDnzu4lW08n+3yuTnLlg4cNiLjAeHnzP8xfsgnptLIne6BGR2nUyt3SLMC8ubnCl3jSxdYWlbO0mEMjLVYIFtPEsXEs7NFN+1V+wX/nOxeZUgNiAjoSwe5MnktfoY9/PD6x/RV+vr8xXtW6oy8carAdBHffwM8EQTMsQwAAA=="
+   },
+   "Metadata": {
+    "aws:cdk:path": "GestionFlotasStack/CDKMetadata/Default"
+   },
+   "Condition": "CDKMetadataAvailable"
+  }
+ },
+ "Conditions": {
+  "CDKMetadataAvailable": {
+   "Fn::Or": [
+    {
+     "Fn::Or": [
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "af-south-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-east-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-northeast-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-northeast-2"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-northeast-3"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-south-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-south-2"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-southeast-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-southeast-2"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-southeast-3"
+       ]
+      }
+     ]
+    },
+    {
+     "Fn::Or": [
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-southeast-4"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ca-central-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ca-west-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "cn-north-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "cn-northwest-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-central-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-central-2"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-north-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-south-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-south-2"
+       ]
+      }
+     ]
+    },
+    {
+     "Fn::Or": [
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-west-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-west-2"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-west-3"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "il-central-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "me-central-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "me-south-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "sa-east-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "us-east-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "us-east-2"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "us-west-1"
+       ]
+      }
+     ]
+    },
+    {
+     "Fn::Equals": [
+      {
+       "Ref": "AWS::Region"
+      },
+      "us-west-2"
+     ]
+    }
+   ]
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

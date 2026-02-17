@@ -1,0 +1,177 @@
+{
+  "info": {
+    "_postman_id": "471da8a5-1794-4816-b1e9-cf2ae04cdb18",
+    "name": "GestionFlotas",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "10141227",
+    "_collection_link": "https://go.postman.co/collection/10141227-471da8a5-1794-4816-b1e9-cf2ae04cdb18?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "CreateSolicitud",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"patente\": \"ABC123\",\r\n  \"nombrePropietario\": \"Juan Perez\",\r\n  \"emailPropietario\": \"juan.perez@mail.com\",\r\n  \"marca\": \"Toyota\",\r\n  \"modelo\": \"Corolla\",\r\n  \"anualidad\": 2022\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/v1/solicitudes",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "v1",
+            "solicitudes"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "ValidateForamtoPatente",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"patente\": \"12ABC123\",\r\n  \"nombrePropietario\": \"Juan Perez\",\r\n  \"emailPropietario\": \"juan.perez@mail.com\",\r\n  \"marca\": \"Toyota\",\r\n  \"modelo\": \"Corolla\",\r\n  \"anualidad\": 2022\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/v1/solicitudes",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "v1",
+            "solicitudes"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "ValidateAnualidad",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": ""
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "listarSolicitudes",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/v1/solicitudes?page=0&size=10",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "v1",
+            "solicitudes"
+          ],
+          "query": [
+            {
+              "key": "page",
+              "value": "0"
+            },
+            {
+              "key": "size",
+              "value": "10"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GetID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/v1/solicitudes/08962c4a-a9ea-4237-a167-7e5b1287c3ad",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "v1",
+            "solicitudes",
+            "08962c4a-a9ea-4237-a167-7e5b1287c3ad"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "getUpdateURL",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/v1/solicitudes/08962c4a-a9ea-4237-a167-7e5b1287c3ad/documentos/upload-url",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "v1",
+            "solicitudes",
+            "08962c4a-a9ea-4237-a167-7e5b1287c3ad",
+            "documentos",
+            "upload-url"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
