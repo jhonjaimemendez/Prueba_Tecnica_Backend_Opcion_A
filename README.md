@@ -75,7 +75,7 @@ Aunque el proyecto se fundamenta en un enfoque API-First, no se implementaron mo
 
 ## Decisión Persistencia
 
-Para la selección del motor me base en los siguientes requisitos funcionales y no funcionales que afectaron mi decisión
+Para la selección del motor de base de datos me base en los siguientes requisitos funcionales y no funcionales que afectaron mi decisión
 
 ### Requisitos Funcionales
 
@@ -96,7 +96,7 @@ Se decidio escoger PostgreSQL por las siguientes razones:
 
 * La integración de PostgreSQL con SpringBoot es mas natural usando Spring Data JPA y la gestión de transacciones. Dynamo puede que requiera un mayor nivel de configuracion. Punto a favor de PostgreSQL. 
 
-* PostgreSQL soporta consultas más complejas y Joins. Aunque el modelo de datos para este ejemplo es pequeño,  esto puede favorecer mucho la extraccion de información. Punto a favor de PostgreSQL
+* PostgreSQL soporta consultas más complejas y Joins. Aunque el modelo de datos para este ejemplo es pequeño,  esto puede favorecer mucho la extraccion de información cuando el modelo crezca. Punto a favor de PostgreSQL
 
 * El escalamiento horizontal para PostgreSQL es mas complejo comparado con DynamoDB y ofrece escalabilidad automática y modelo serverless. Punto a favor de DynamoDB. Sin embargo, dado que el documento no especifica alta concurrencia ni alto volumen transaccional, este factor no es determinante para la decision 
 
@@ -136,7 +136,7 @@ La solución, segun lo solicitado, implementa las siguientes medidas para garant
 5. DTOs: Objetos de transferencia de datos 
 6. Mapper: Conversión entre entidades y DTOs.
 7. Exception: Excepciones  personalizadas e incluyento el GlobalExceptionHandler
-8. Event: Publicación del evento de dominio para publicar en una SQS en AWS.
+8. Event: Publicación del evento de dominio para publicar en la  SQS  gestionflotas-solicitudes que se creo en AWS.
 
 ### Tests Unitarios
 
@@ -182,11 +182,14 @@ Se utilizaron constructsdefinir los recursos:
 ### Pasos para ejecutar
 
 1. Clonar el Servicio
+    ```
+    git clone https://github.com/jhonjaimemendez/Prueba_Tecnica_Backend_Opcion_A
+    ```
 2. Levantar base de datos. Acceda a la Root Path del proyecto a la carpeta deploy y ejecutar
     ```
     docker-compose up -d
     ```
-3. Compilar proyecto
+3. Compilar proyecto, ubiquese en /backend/GestionFlotas
     ```
     mvn clean install
     ```
@@ -194,15 +197,22 @@ Se utilizaron constructsdefinir los recursos:
     ```
     mvn spring-boot:run
     ```
+5.  Para testear la URL que genera /{id}/documentos/upload-url
+    ```
+    curl.exe -X PUT `
+    -H "Content-Type: application/pdf" `
+    --upload-file XYZ.pdf `
+    "URL_Generado"
+    ```
+
 
 #### La API estará disponible en:
     http://localhost:8080
-    
-#### Swagger:
-    http://localhost:8080/swagger-ui.html
  
- #### Colecciones Postman
-  Puede encontrar la colección de Postman para probar el servicio en la carpeta: Colecciones
+#### Colecciones Postman
+  Puede encontrar la colección de Postman para probar el servicio en la carpeta: coleccionPostman
+
+#### Nota: Se crea un bucket con el nombre gestion-flotas para el requisito del endpoint: /{id}/documentos/upload-url
 
 ## Payload Peticion Crear Solicitud
 
@@ -222,7 +232,7 @@ Se utilizaron constructsdefinir los recursos:
 
 ## Stack Tecnologico
 
-*   Spring Boot 3.2
+*   Spring Boot 3.5.10
 *   Java 17
 *   PostgreSQL 16
 *   Mermaid
