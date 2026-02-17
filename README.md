@@ -185,11 +185,11 @@ Se utilizaron constructsdefinir los recursos:
     ```
     git clone https://github.com/jhonjaimemendez/Prueba_Tecnica_Backend_Opcion_A
     ```
-2. Levantar base de datos. Acceda a la Root Path del proyecto a la carpeta deploy y ejecutar
+2. Levantar el contenedor de la base de datos. Acceda al Root Path del proyecto a la carpeta backend/GestionFlotas/deploy y ejecutar
     ```
     docker-compose up -d
     ```
-3. Compilar proyecto, ubiquese en /backend/GestionFlotas
+3. Compilar proyecto, ubiquese en /backend/GestionFlotas y ejecutar
     ```
     mvn clean install
     ```
@@ -240,4 +240,5 @@ Se utilizaron constructsdefinir los recursos:
 *   CDK en Java
 *   SQS
 *   S3
+
 
